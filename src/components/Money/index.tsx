@@ -2,12 +2,32 @@ import React from 'react';
 import {ColorValue, StyleSheet, Text} from 'react-native';
 
 interface MoneyProps {
-  size: 'normal' | 'small';
+  size: 'normal' | 'small' | 'mini';
   money: Number;
   color?: ColorValue;
+  prefix?: String;
+  fontWeight?:
+    | 'normal'
+    | '500'
+    | 'bold'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | undefined;
 }
 
-export const Money = ({size = 'normal', money, color = '#000'}: MoneyProps) => {
+export const Money = ({
+  size = 'normal',
+  money,
+  color = '#000',
+  fontWeight = '500',
+  prefix,
+}: MoneyProps) => {
   let signFontSize = 16;
   let moneyFontSize = 24;
 
@@ -17,8 +37,12 @@ export const Money = ({size = 'normal', money, color = '#000'}: MoneyProps) => {
       moneyFontSize = 24;
       break;
     case 'small':
-      signFontSize = 12;
+      signFontSize = 14;
       moneyFontSize = 16;
+      break;
+    case 'mini':
+      signFontSize = 12;
+      moneyFontSize = 12;
       break;
   }
 
@@ -30,7 +54,7 @@ export const Money = ({size = 'normal', money, color = '#000'}: MoneyProps) => {
     money: {
       color,
       fontSize: moneyFontSize,
-      fontWeight: '500',
+      fontWeight: fontWeight,
     },
   });
 
@@ -43,6 +67,7 @@ export const Money = ({size = 'normal', money, color = '#000'}: MoneyProps) => {
 
   return (
     <Text>
+      <Text style={styles.sign}>{prefix}</Text>
       <Text style={styles.sign}>￥</Text>
       <Text style={styles.money}>{moneyFormat(money)}</Text>
     </Text>

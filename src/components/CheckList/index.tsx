@@ -1,14 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {
-  WingBlank,
-  View,
-  Card,
-  WhiteSpace,
-  Button,
-  Flex,
-  List,
-} from '@ant-design/react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {theme, globalStyles} from '../../styles/global';
 import {Money} from '../Money';
@@ -30,6 +21,9 @@ export const CheckList = (props: CheckListProps) => {
     text: {
       color: '#fff',
     },
+    listStyle: {
+      backgroundColor: '#fff',
+    },
     listIcon: {
       backgroundColor: theme.brand_primary,
       width: 32,
@@ -38,21 +32,52 @@ export const CheckList = (props: CheckListProps) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginRight: 16,
     },
   });
 
   return (
     <View>
-      <List
-        renderHeader={
-          <View style={{marginBottom: 8}}>
-            <Text>{props.title}</Text>
+      <View style={{overflow: 'hidden'}}>
+        <View style={{marginBottom: 8, ...globalStyles.flexSpace}}>
+          <View>
+            <Text style={{color: theme.color_text_secondary}}>
+              {props.title}
+            </Text>
           </View>
-        }>
+          <View
+            style={{
+              ...globalStyles.flexEnd,
+              ...globalStyles.alignCenter,
+            }}>
+            <View style={{...globalStyles.mrXs}}>
+              <Money
+                fontWeight="normal"
+                prefix="收入"
+                size="mini"
+                color={theme.color_text_secondary}
+                money={199}></Money>
+            </View>
+            <View>
+              <Money
+                fontWeight="normal"
+                prefix="支出"
+                size="mini"
+                color={theme.color_text_secondary}
+                money={199}></Money>
+            </View>
+          </View>
+        </View>
         {props.data.map(item => {
           return (
-            <List.Item key={item.id}>
+            <View
+              style={{
+                ...styles.listStyle,
+                ...globalStyles.pl,
+                ...globalStyles.pr,
+                ...globalStyles.mbXs,
+                ...globalStyles.borderRadius,
+              }}
+              key={item.id}>
               <View
                 style={{
                   ...globalStyles.mtXs,
@@ -67,7 +92,7 @@ export const CheckList = (props: CheckListProps) => {
                     ...globalStyles.flexStart,
                     ...globalStyles.alignCenter,
                   }}>
-                  <View style={styles.listIcon}>
+                  <View style={{...styles.listIcon, ...globalStyles.mr}}>
                     <Ionicons name={item.icon} size={18} color="#fff" />
                   </View>
                   <View>
@@ -91,10 +116,10 @@ export const CheckList = (props: CheckListProps) => {
                   )}
                 </View>
               </View>
-            </List.Item>
+            </View>
           );
         })}
-      </List>
+      </View>
     </View>
   );
 };

@@ -4,13 +4,24 @@
  *
  * @format
  */
-import theme from './styles/theme';
 import * as React from 'react';
-import {IconFill, IconOutline} from '@ant-design/icons-react-native';
-import {Provider, Button, TabBar, Icon} from '@ant-design/react-native';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {PaperProvider, MD3LightTheme as DefaultTheme} from 'react-native-paper';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
+const theme = {
+  ...DefaultTheme,
+  // Specify custom property
+  myOwnProperty: true,
+  ...DefaultTheme.colors,
+  // Specify custom property in nested object
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#69b476',
+    secondary: '#f1c40f',
+    secondaryContainer: '#69b476',
+    tertiary: '#a1b2c3',
+  },
+};
 import {
   SafeAreaView,
   ScrollView,
@@ -23,50 +34,87 @@ import {
 import {router} from './routers';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {globalStyles} from './styles/global';
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+export const Tabs = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        headerStyle: {
+          backgroundColor: '#fff',
+        },
+        headerTintColor: theme.colors.primary,
+        headerTitleStyle: {
+          fontSize: 16,
+          fontWeight: 'bold',
+        },
+        tabBarStyle: {
+          backgroundColor: '#fff',
+        },
+      }}>
+      {router.children.map(item => {
+        return (
+          <Tab.Screen
+            key={item.name}
+            name={item.name}
+            component={item.component}
+            options={{
+              title: item.title,
+              tabBarLabel: item.title,
+              tabBarActiveTintColor: theme.colors.primary,
+              tabBarIcon: ({color}) => (
+                <Ionicons name={item.icon} color={color} size={26}></Ionicons>
+              ),
+            }}
+          />
+        );
+      })}
+    </Tab.Navigator>
+  );
+};
 
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Provider theme={theme}>
-        <Tab.Navigator
-          screenOptions={{
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: theme.fill_base,
-            },
-            headerTintColor: theme.brand_primary,
-            headerTitleStyle: {
-              fontSize: theme.font_size_caption,
-              fontWeight: 'bold',
-            },
-            tabBarStyle: {
-              backgroundColor: theme.fill_base,
-            },
-          }}>
+      <PaperProvider theme={theme}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Entry"
+            component={Tabs}
+            options={{headerShown: false}}
+          />
           {router.children.map(item => {
-            return (
-              <Tab.Screen
-                key={item.name}
-                name={item.name}
-                component={item.component}
-                options={{
-                  title: item.title,
-                  tabBarLabel: item.title,
-                  tabBarActiveTintColor: theme.brand_primary,
-                  tabBarIcon: ({color}) => (
-                    <AntDesign
-                      name={item.icon}
-                      color={color}
-                      size={26}></AntDesign>
-                  ),
-                }}
-              />
-            );
+            if (Array.isArray(item.children)) {
+              return item.children.map(childItem => {
+                return (
+                  <Stack.Screen
+                    name={childItem.name}
+                    component={childItem.component}
+                    options={{
+                      title: childItem.title,
+                      headerShown: true,
+                      headerStyle: {
+                        backgroundColor: '#fff',
+                      },
+                      headerTintColor: theme.colors.primary,
+                      headerTitleStyle: {
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                      },
+                    }}
+                  />
+                );
+              });
+            } else {
+              return null;
+            }
           })}
-        </Tab.Navigator>
-      </Provider>
+        </Stack.Navigator>
+      </PaperProvider>
     </NavigationContainer>
   );
 }

@@ -1,21 +1,13 @@
 import * as React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {
-  WingBlank,
-  View,
-  WhiteSpace,
-  Button,
-  Flex,
-  List,
-} from '@ant-design/react-native';
+import {WingBlank, View, WhiteSpace} from '@ant-design/react-native';
 import {DefaultLayout} from '../../layouts/DefaultLayout';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {Button} from 'react-native-paper';
 import {Board} from '../../components/Board';
-import {Money} from '../../components/Money';
 import {CheckList} from '../../components/CheckList';
-import {theme, globalColor, globalStyles} from '../../styles/global';
+import {theme, globalStyles} from '../../styles/global';
 
 export const Home = ({navigation}) => {
   const styles = StyleSheet.create({
@@ -41,7 +33,7 @@ export const Home = ({navigation}) => {
       typeName: '彩票中奖',
       amount: 5000000,
       amountType: 1,
-      created: '2023-09-03 13:18',
+      created: '13:18',
     },
     {
       id: 2,
@@ -49,7 +41,7 @@ export const Home = ({navigation}) => {
       typeName: '炸鸡啤酒',
       amount: 30,
       amountType: 2,
-      created: '2023-09-03 13:18',
+      created: '13:18',
     },
     {
       id: 3,
@@ -57,7 +49,7 @@ export const Home = ({navigation}) => {
       typeName: '短袖衬衫',
       amount: 50,
       amountType: 2,
-      created: '2023-09-03 13:18',
+      created: '13:18',
     },
   ];
 
@@ -65,25 +57,22 @@ export const Home = ({navigation}) => {
     <DefaultLayout>
       <WingBlank size="lg">
         <Board income={9358} expense={3831}></Board>
-        <View style={{marginTop: 16}}>
+        <WhiteSpace size="lg" />
+        <View>
           <Button
-            type="primary"
-            activeStyle={{
-              backgroundColor: theme.brand_primary_tap,
+            icon={() => <Ionicons name="save" size={16} color="#fff" />}
+            mode="contained"
+            onPress={() => {
+              navigation.navigate('AddRecord');
             }}>
-            <Text
-              style={{
-                color: theme.color_text_base_inverse,
-              }}>
-              <AntDesign name="plus" size={14} />
-              添加
-            </Text>
+            添加记录
           </Button>
         </View>
         {[1, 2, 3, 4, 5].map(item => {
           return (
-            <View key={item} style={{...globalStyles.mt}}>
-              <CheckList title="9月2日" data={listData}></CheckList>
+            <View key={item}>
+              <WhiteSpace size="lg" />
+              <CheckList title="2023/9/2" data={listData}></CheckList>
             </View>
           );
         })}

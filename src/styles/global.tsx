@@ -47,6 +47,18 @@ export const globalStyles = StyleSheet.create({
     marginRight: gap,
   },
   // 添加 padding-top-xs, padding-bottom-xs, padding-left-xs, padding-right-xs 样式
+  pt: {
+    paddingTop: gap * 2,
+  },
+  pb: {
+    paddingBottom: gap * 2,
+  },
+  pl: {
+    paddingLeft: gap * 2,
+  },
+  pr: {
+    paddingRight: gap * 2,
+  },
   ptXs: {
     paddingTop: gap,
   },
@@ -86,5 +98,9 @@ export const globalStyles = StyleSheet.create({
   },
   alignCenter: {
     alignItems: 'center',
+  },
+  // border
+  borderRadius: {
+    borderRadius: 8,
   },
 });

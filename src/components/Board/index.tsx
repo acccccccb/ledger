@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {View, Card, Flex} from '@ant-design/react-native';
-import {DefaultLayout} from '../../layouts/DefaultLayout';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {StyleSheet, View} from 'react-native';
+import {WhiteSpace} from '@ant-design/react-native';
+import {Card, Text} from 'react-native-paper';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Money} from '../Money';
 import {theme, globalStyles} from '../../styles/global';
@@ -16,9 +16,6 @@ export const Board = (props: BoardProps) => {
   const styles = StyleSheet.create({
     card: {
       backgroundColor: theme.brand_primary,
-      marginTop: 16,
-      borderRadius: theme.radius_lg,
-      overflow: 'hidden',
     },
     text: {
       color: theme.color_text_base_inverse,
@@ -35,35 +32,40 @@ export const Board = (props: BoardProps) => {
   });
 
   return (
-    <Card style={styles.card}>
-      <Card.Body>
-        <View>
-          <View style={{padding: 16}}>
-            <View
-              style={{
-                ...globalStyles.mbXs,
-                ...globalStyles.flexStart,
-                ...globalStyles.alignCenter,
-              }}>
-              <Text style={{...styles.text}}>总结余</Text>
-              <View style={{marginLeft: 5}}>
-                <Ionicons
-                  color={theme.color_text_base_inverse}
-                  name="chevron-down"
-                />
+    <View>
+      <WhiteSpace size="lg" />
+      <Card style={styles.card}>
+        <Card.Content>
+          <View>
+            <View style={{padding: 16}}>
+              <View
+                style={{
+                  ...globalStyles.mbXs,
+                  ...globalStyles.flexStart,
+                  ...globalStyles.alignCenter,
+                }}>
+                <Text style={{...styles.text}}>月结余</Text>
+                <View style={{marginLeft: 5}}>
+                  <Ionicons
+                    color={theme.color_text_base_inverse}
+                    name="chevron-down"
+                  />
+                </View>
               </View>
-            </View>
-            <View>
-              <Money
-                color={theme.color_text_base_inverse}
-                size="normal"
-                money={props.income - props.expense}></Money>
-            </View>
-            <Flex style={{...globalStyles.mt}}>
-              <Flex.Item>
-                <View>
-                  <Flex justify="start">
-                    <Flex.Item style={{flex: 1}}>
+              <View>
+                <Money
+                  color={theme.color_text_base_inverse}
+                  size="normal"
+                  money={props.income - props.expense}></Money>
+              </View>
+              <View style={{...globalStyles.flexCenter, ...globalStyles.mtXs}}>
+                <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      ...globalStyles.flexCenter,
+                      ...globalStyles.alignCenter,
+                    }}>
+                    <View style={{flex: 1}}>
                       <View style={styles.moneyIcon}>
                         <Ionicons
                           name="trending-up"
@@ -71,8 +73,8 @@ export const Board = (props: BoardProps) => {
                           color={theme.brand_primary}
                         />
                       </View>
-                    </Flex.Item>
-                    <Flex.Item style={{flex: 3}}>
+                    </View>
+                    <View style={{flex: 3}}>
                       <Text style={{marginLeft: 4, ...styles.text}}>
                         月收入
                       </Text>
@@ -80,14 +82,16 @@ export const Board = (props: BoardProps) => {
                         color={theme.color_text_base_inverse}
                         size="small"
                         money={props.income}></Money>
-                    </Flex.Item>
-                  </Flex>
+                    </View>
+                  </View>
                 </View>
-              </Flex.Item>
-              <Flex.Item>
-                <View>
-                  <Flex justify="start">
-                    <Flex.Item style={{flex: 1}}>
+                <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      ...globalStyles.flexCenter,
+                      ...globalStyles.alignCenter,
+                    }}>
+                    <View style={{flex: 1}}>
                       <View style={styles.moneyIcon}>
                         <Ionicons
                           name="trending-down"
@@ -95,8 +99,8 @@ export const Board = (props: BoardProps) => {
                           color={theme.brand_primary}
                         />
                       </View>
-                    </Flex.Item>
-                    <Flex.Item style={{flex: 3}}>
+                    </View>
+                    <View style={{flex: 3}}>
                       <Text style={{marginLeft: 4, ...styles.text}}>
                         月支出
                       </Text>
@@ -104,14 +108,19 @@ export const Board = (props: BoardProps) => {
                         color={theme.color_text_base_inverse}
                         size="small"
                         money={props.expense}></Money>
-                    </Flex.Item>
-                  </Flex>
+                    </View>
+                  </View>
                 </View>
-              </Flex.Item>
-            </Flex>
+              </View>
+            </View>
           </View>
-        </View>
-      </Card.Body>
-    </Card>
+        </Card.Content>
+      </Card>
+      {/* <Card style={styles.card}>
+        <Card.Body>
+          
+        </Card.Body>
+      </Card> */}
+    </View>
   );
 };

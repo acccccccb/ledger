@@ -1,4 +1,4 @@
-import {TabBar, View} from '@ant-design/react-native';
+import {Provider, TabBar, View} from '@ant-design/react-native';
 import {StyleSheet, Text, ScrollView} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 

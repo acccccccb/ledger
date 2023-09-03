@@ -2,14 +2,18 @@ import * as React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {WingBlank, View, WhiteSpace} from '@ant-design/react-native';
 import {DefaultLayout} from '../../layouts/DefaultLayout';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button} from 'react-native-paper';
 import {Board} from '../../components/Board';
 import {CheckList} from '../../components/CheckList';
 import {theme, globalStyles} from '../../styles/global';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {router} from '../../routers';
 
-export const Home = ({navigation}) => {
+const Stack = createNativeStackNavigator();
+
+export const HomeStackScreen = ({navigation}) => {
   const styles = StyleSheet.create({
     text: {
       color: theme.color_text_base_inverse,
@@ -79,5 +83,54 @@ export const Home = ({navigation}) => {
       </WingBlank>
       <WhiteSpace size="lg" />
     </DefaultLayout>
+  );
+};
+
+export const Home = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={'Home'}
+        component={HomeStackScreen}
+        options={{
+          title: router.children[0].title,
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: theme.brand_primary,
+          headerTitleStyle: {
+            fontSize: 16,
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      {router.children.map(item => {
+        if (Array.isArray(item.children)) {
+          return item.children.map(childItem => {
+            return (
+              <Stack.Screen
+                name={childItem.name}
+                component={childItem.component}
+                options={{
+                  title: childItem.title,
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: '#fff',
+                  },
+                  headerTintColor: theme.brand_primary,
+                  headerTitleStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                  },
+                }}
+              />
+            );
+          });
+        } else {
+          return null;
+        }
+      })}
+    </Stack.Navigator>
   );
 };

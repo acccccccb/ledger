@@ -5,7 +5,7 @@ export const router = {
   name: 'root',
   children: [
     {
-      name: 'Home',
+      name: 'HomeStack',
       title: '今日记录',
       icon: 'today',
       component: Home,

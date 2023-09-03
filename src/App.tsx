@@ -77,42 +77,33 @@ export const Tabs = () => {
   );
 };
 
+const config = {
+  animation: 'timing', // 使用'timing'动画类型
+  config: {
+    duration: 500, // 动画持续时间（毫秒）
+  },
+  from: {
+    translateX: -100, // 起始位置，例如从左边界开始
+  },
+  to: {
+    translateX: 100, // 终点位置，例如滑向右边界
+  },
+};
+
 function App(): JSX.Element {
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            presentation: 'card',
+            animationTypeForReplace: 'push',
+          }}>
           <Stack.Screen
             name="Entry"
             component={Tabs}
             options={{headerShown: false}}
           />
-          {router.children.map(item => {
-            if (Array.isArray(item.children)) {
-              return item.children.map(childItem => {
-                return (
-                  <Stack.Screen
-                    name={childItem.name}
-                    component={childItem.component}
-                    options={{
-                      title: childItem.title,
-                      headerShown: true,
-                      headerStyle: {
-                        backgroundColor: '#fff',
-                      },
-                      headerTintColor: theme.colors.primary,
-                      headerTitleStyle: {
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                      },
-                    }}
-                  />
-                );
-              });
-            } else {
-              return null;
-            }
-          })}
         </Stack.Navigator>
       </PaperProvider>
     </NavigationContainer>

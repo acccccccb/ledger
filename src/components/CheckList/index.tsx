@@ -99,7 +99,9 @@ export const CheckList = (props: CheckListProps) => {
                     <Text style={{...globalStyles.textColorDefault}}>
                       {item.typeName}
                     </Text>
-                    <Text>{item.created}</Text>
+                    <Text style={{color: theme.color_text_secondary}}>
+                      {item.created}
+                    </Text>
                   </View>
                 </View>
                 <View>

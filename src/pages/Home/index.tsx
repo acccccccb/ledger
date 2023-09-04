@@ -10,10 +10,12 @@ import {CheckList} from '../../components/CheckList';
 import {theme, globalStyles} from '../../styles/global';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {router} from '../../routers';
+import { useLedgerRecordStorage } from '../../store/ledger_record';
 
 const Stack = createNativeStackNavigator();
 
 export const HomeStackScreen = ({navigation}) => {
+  // const [user, setUser] = useLedgerRecordStorage('name', 'kkkk');
   const styles = StyleSheet.create({
     text: {
       color: theme.color_text_base_inverse,
@@ -71,6 +73,7 @@ export const HomeStackScreen = ({navigation}) => {
             }}>
             添加记录
           </Button>
+          <Text style={{color: 'red'}}> {user}</Text>
         </View>
         {[1, 2, 3, 4, 5].map(item => {
           return (

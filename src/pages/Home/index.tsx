@@ -73,7 +73,7 @@ export const HomeStackScreen = ({navigation}) => {
             }}>
             添加记录
           </Button>
-          <Text style={{color: 'red'}}> {user}</Text>
+          {/*<Text style={{color: 'red'}}> {user}</Text>*/}
         </View>
         {[1, 2, 3, 4, 5].map(item => {
           return (
